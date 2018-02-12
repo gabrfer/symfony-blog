@@ -1,0 +1,73 @@
+AppBundle\Entity\Project:
+    type: entity
+    table: project
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        intro:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        source:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        startDate:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: start_date
+        finish:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        photoUrl:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: photo_url
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        active:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        publishedDate:
+            type: date
+            nullable: true
+            column: published_date
+    lifecycleCallbacks: {  }

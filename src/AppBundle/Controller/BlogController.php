@@ -16,10 +16,10 @@ class BlogController extends Controller
     private $entityManager;
 
     /** @var \Doctrine\Common\Persistence\ObjectRepository */
-    private $authorRepository;
+    private $userRepository;
 
     /** @var \Doctrine\Common\Persistence\ObjectRepository */
-    private $blogPostRepository;
+    private $postRepository;
 
     /**
      * @param EntityManagerInterface $entityManager
@@ -27,8 +27,8 @@ class BlogController extends Controller
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->blogPostRepository = $entityManager->getRepository('AppBundle:BlogPost');
-        $this->authorRepository = $entityManager->getRepository('AppBundle:Author');
+        $this->postRepository = $entityManager->getRepository('AppBundle:Post');
+        $this->userRepository = $entityManager->getRepository('AppBundle:User');
     }
 
     /**
@@ -44,33 +44,33 @@ class BlogController extends Controller
         }
 
         return $this->render('AppBundle:Blog:entries.html.twig', [
-            'blogPosts' => $this->blogPostRepository->getAllPosts($page, self::POST_LIMIT),
-            'totalBlogPosts' => $this->blogPostRepository->getPostCount(),
+            'blogPosts' => $this->postRepository->getAll($page, self::POST_LIMIT),
+            'totalBlogPosts' => $this->postRepository->getCount(),
             'page' => $page,
             'entryLimit' => self::POST_LIMIT
         ]);
     }
 
     /**
-     * @Route("/entry/{slug}", name="entry")
+     * @Route("/entry/{id}", name="entry")
      */
-    public function entryAction($slug)
+    public function entryAction($id)
     {
-        $blogPost = $this->blogPostRepository->findOneBySlug($slug);
+        $post = $this->postRepository->findOneById($id);
 
-        if (!$blogPost) {
+        if (!$post) {
             $this->addFlash('error', 'Unable to find entry!');
         
             return $this->redirectToRoute('entries');
         }
 
         return $this->render('AppBundle:Blog:entry.html.twig', array(
-            'blogPost' => $blogPost
+            'post' => $post
         ));
     }
 
     /**
-     * @Route("/author/{name}", name="author")
+     * @Route("/user/{name}", name="user")
      */
     public function authorAction($name)
     {

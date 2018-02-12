@@ -1,0 +1,48 @@
+AppBundle\Entity\PostComment:
+    type: entity
+    table: post_comment
+    indexes:
+        post_id:
+            columns:
+                - post_id
+        comment_id:
+            columns:
+                - comment_id
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        assignData:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: assign_data
+    manyToOne:
+        post:
+            targetEntity: Post
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                post_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        comment:
+            targetEntity: Comment
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                comment_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

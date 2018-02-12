@@ -1,0 +1,48 @@
+AppBundle\Entity\PostTag:
+    type: entity
+    table: post_tag
+    indexes:
+        post_id:
+            columns:
+                - post_id
+        tag_id:
+            columns:
+                - tag_id
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        assignData:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: assign_data
+    manyToOne:
+        post:
+            targetEntity: Post
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                post_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        tag:
+            targetEntity: Tag
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                tag_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

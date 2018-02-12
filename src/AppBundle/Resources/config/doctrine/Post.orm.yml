@@ -1,0 +1,83 @@
+AppBundle\Entity\Post:
+    type: entity
+    table: post
+    repositoryClass: AppBundle\Repository\PostRepository
+    indexes:
+        user_id:
+            columns:
+                - user_id
+    id:
+        id:
+            type: bigint
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        text:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        source:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        sourceTitle:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: source_title
+        important:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        createdDate:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_date
+        active:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        publishedDate:
+            type: datetime
+            nullable: true
+            column: published_date
+    manyToOne:
+        user:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
